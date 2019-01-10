@@ -1,0 +1,9 @@
+{
+	"name": "warengo/grid",
+	"type": "library",
+	"autoload": {
+		"psr-4": {
+			"Warengo\\DataGrid": ["src/"]
+		}
+	}
+}
