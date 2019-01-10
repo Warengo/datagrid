@@ -1,5 +1,5 @@
 {
-	"name": "warengo/grid",
+	"name": "warengo/datagrid",
 	"type": "library",
 	"autoload": {
 		"psr-4": {
