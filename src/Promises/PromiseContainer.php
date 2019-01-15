@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Warengo\Datagrid\Promises;
+namespace Warengo\DataGrid\Promises;
 
 use Nette\DI\Container;
 

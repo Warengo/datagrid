@@ -6,9 +6,12 @@ use Nette;
 use Ublaboo\DataGrid\Components\DataGridPaginator\DataGridPaginator;
 use Warengo\DataGrid\Columns\BooleanColumn;
 use Warengo\DataGrid\Columns\ImageColumn;
-use Warengo\Datagrid\Promises\PromiseContainer;
+use Warengo\DataGrid\Promises\PromiseContainer;
 
 class DataGrid extends \Ublaboo\DataGrid\DataGrid {
+
+	/** @var PromiseContainer */
+	private $containerPromise;
 
 	public function __construct(?Nette\ComponentModel\IContainer $parent = null, ?string $name = null) {
 		parent::__construct($parent, $name);
