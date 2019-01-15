@@ -2,16 +2,39 @@
 
 namespace Warengo\DataGrid;
 
+use Nette;
 use Ublaboo\DataGrid\Components\DataGridPaginator\DataGridPaginator;
 use Warengo\DataGrid\Columns\BooleanColumn;
+use Warengo\DataGrid\Columns\ImageColumn;
+use Warengo\Datagrid\Promises\PromiseContainer;
 
 class DataGrid extends \Ublaboo\DataGrid\DataGrid {
+
+	public function __construct(?Nette\ComponentModel\IContainer $parent = null, ?string $name = null) {
+		parent::__construct($parent, $name);
+
+		$this->containerPromise = new PromiseContainer();
+	}
+
+	public function attached(Nette\ComponentModel\IComponent $presenter): void {
+		if ($presenter instanceof Nette\Application\IPresenter) {
+			$this->containerPromise->attach($presenter->getContext());
+		}
+		parent::attached($presenter);
+	}
 
 	public function addColumnBoolean(string $key, string $name, ?string $column = null): BooleanColumn {
 		$this->addColumnCheck($key);
 		$column = $column ?: $key;
 
 		return $this->addColumn($key, new BooleanColumn($this, $key, $column, $name));
+	}
+
+	public function addColumnImage(string $key, string $name, ?string $column = null): ImageColumn {
+		$this->addColumnCheck($key);
+		$column = $column ?: $key;
+
+		return $this->addColumn($key, new ImageColumn($this, $key, $column, $name, $this->containerPromise));
 	}
 
 	public function addEditAction(string $link) {

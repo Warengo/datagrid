@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Warengo\Datagrid\DI;
+namespace Warengo\DataGrid\DI;
 
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\Definition;
