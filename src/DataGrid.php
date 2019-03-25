@@ -60,8 +60,8 @@ class DataGrid extends \Ublaboo\DataGrid\DataGrid {
 			->setClass('btn btn-danger btn-sm');
 	}
 
-	public function addLinkAction(string $key, string $name, string $address) {
-		$this->addAction($key, $name, $address)
+	public function addLinkAction(string $key, string $name, string $address, ?array $params = []) {
+		return $this->addAction($key, $name, $address, $params)
 			->addAttributes(['target' => '_blank'])
 			->setClass('btn btn-primary btn-sm');
 	}
