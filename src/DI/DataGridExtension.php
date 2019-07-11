@@ -5,10 +5,10 @@ namespace Warengo\DataGrid\DI;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\Definition;
 use Nette\DI\Definitions\FactoryDefinition;
+use Nette\DI\Statement;
 use Warengo\DataGrid\BaseGrid;
 use Warengo\DataGrid\DataGrid;
 use Warengo\DataGrid\Factories\IGridFactory;
-use WebChemistry\Decorator\Decorator;
 
 final class DataGridExtension extends CompilerExtension {
 
@@ -22,10 +22,12 @@ final class DataGridExtension extends CompilerExtension {
 	}
 
 	public function beforeCompile() {
-		$decorator = new Decorator($this->getContainerBuilder());
-
-		$decorator->decorate(BaseGrid::class)
-			->addSetup('injectComponents');
+		foreach ($this->findByType(BaseGrid::class) as $def) {
+			if ($def instanceof FactoryDefinition) {
+				$def = $def->getResultDefinition();
+			}
+			$def->addSetup('injectComponents');
+		}
 	}
 
 	private function findByType(string $type): array {

@@ -16,7 +16,7 @@ class BooleanColumn extends Column {
 		}
 	}
 
-	public function getAlign() {
+	public function getAlign(): string {
 		return 'center';
 	}
 

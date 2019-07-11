@@ -3,6 +3,9 @@
 namespace Warengo\DataGrid;
 
 use Nette;
+use Ublaboo\DataGrid\Column\Action;
+use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
+use Ublaboo\DataGrid\Column\ColumnNumber;
 use Ublaboo\DataGrid\Components\DataGridPaginator\DataGridPaginator;
 use Warengo\DataGrid\Columns\BooleanColumn;
 use Warengo\DataGrid\Columns\ImageColumn;
@@ -40,8 +43,8 @@ class DataGrid extends \Ublaboo\DataGrid\DataGrid {
 		return $this->addColumn($key, new ImageColumn($this, $key, $column, $name, $this->containerPromise));
 	}
 
-	public function addEditAction(string $link) {
-		$this->addAction('edit', 'upravit', $link)
+	public function addEditAction(string $link, ?array $params = null): Action {
+		return $this->addAction('edit', 'upravit', $link, $params)
 			->setClass('btn btn-primary btn-sm');
 	}
 
@@ -56,7 +59,7 @@ class DataGrid extends \Ublaboo\DataGrid\DataGrid {
 			$this->getPresenter()->flashMessage('Položka odstraněna.');
 			$this->redirect('this');
 		})
-			->setConfirm('Jste si opravdu jistí?')
+			->setConfirmation(new StringConfirmation('Jste si opravdu jistí?'))
 			->setClass('btn btn-danger btn-sm');
 	}
 
@@ -66,23 +69,17 @@ class DataGrid extends \Ublaboo\DataGrid\DataGrid {
 			->setClass('btn btn-primary btn-sm');
 	}
 
-	public function addColumnNumber($key, $name, $column = null) {
+	public function addColumnNumber(string $key, string $name, ?string $column = null): ColumnNumber {
 		$column = parent::addColumnNumber($key, $name, $column);
 		$column->setAlign('left');
 
 		return $column;
 	}
 
-	/**
-	 * Paginator factory
-	 */
-	public function createComponentPaginator() {
-		/**
-		 * Init paginator
-		 */
+	public function createComponentPaginator(): DataGridPaginator {
 		$component = new DataGridPaginator(
 			$this->getTranslator(),
-			static::$icon_prefix
+			static::$iconPrefix
 		);
 		$paginator = $component->getPaginator();
 

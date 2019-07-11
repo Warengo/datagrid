@@ -12,7 +12,7 @@ abstract class BaseGrid {
 	/** @var IGridFactory */
 	private $gridFactory;
 
-	public function injectComponents(IGridFactory $gridFactory) {
+	final public function injectComponents(IGridFactory $gridFactory): void {
 		$this->gridFactory = $gridFactory;
 	}
 
